@@ -27,8 +27,8 @@ public partial class PokemonCard
         return pokemonTypeName switch
         {
             "normal" => "#a9a879",
-            "fire" => "#FF0000",
-            "water" => "#0000FF",
+            "fire" => "#c02f27",
+            "water" => "#6892f1",
             "grass" => "#7ac852",
             "electric" => "#f7d02f",
             "ice" => "#98d8d7",
