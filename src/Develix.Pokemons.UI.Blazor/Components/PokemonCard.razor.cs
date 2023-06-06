@@ -13,10 +13,20 @@ public partial class PokemonCard
     [EditorRequired]
     public PokemonSpecies? Species { get; set; }
 
-    private string GetPokemonTypeNames(Pokemon pokemon)
+    [Parameter]
+    [EditorRequired]
+    public IReadOnlyList<PokeApiNet.Type> TypeNames { get; set; } = new List<PokeApiNet.Type>();
+
+    private string GetPokemonTypeNames(IReadOnlyList<PokeApiNet.Type> types)
     {
-        var types = pokemon.Types.Select(t => t.Type.Name);
-        return string.Join(", ", types);
+        var typeNames = new List<string>();
+        foreach (var type in types)
+        {
+            var name = GetGermanName(type.Names);
+            typeNames.Add(name);
+        }
+
+        return string.Join(", ", typeNames);
     }
 
     private string GetPokemonTypeColor(Pokemon pokemon)
@@ -50,7 +60,12 @@ public partial class PokemonCard
 
     private string GetPokemonName(PokemonSpecies species)
     {
-        var name = species.Names.Single(n => n.Language.Name == "de");
+        return GetGermanName(species.Names);
+    }
+
+    private string GetGermanName(IEnumerable<Names> names)
+    {
+        var name = names.Single(n => n.Language.Name == "de");
         return name.Name;
     }
 }

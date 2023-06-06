@@ -20,7 +20,7 @@
                         }
                         else
                         {
-                            <MudText>Get Pokémon #@pokedexId</MudText>
+                            <MudText> Pokémon @pokedexId suchen</MudText>
                         }
                     </MudButton>
                 </MudItem>
@@ -28,6 +28,6 @@
         </MudPaper>
     </MudItem>
     <MudItem xs="12" md="4">
-        <PokemonCard Pokemon="pokedexState.Value.Pokemon" Species="pokedexState.Value.Species" />
+        <PokemonCard Pokemon="pokedexState.Value.Pokemon" Species="pokedexState.Value.Species" TypeNames="pokedexState.Value.Types" />
     </MudItem>
 </MudGrid>
