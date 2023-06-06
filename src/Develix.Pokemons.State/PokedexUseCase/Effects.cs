@@ -15,7 +15,8 @@ public class Effects
     public async Task HandleGetPokemonAction(GetPokemonAction action, IDispatcher dispatcher)
     {
         var pokemon = await pokeApiClient.GetResourceAsync<Pokemon>(action.PokedexId);
-        var resultAction = new GetPokemonResultAction(pokemon);
+        var species = await pokeApiClient.GetResourceAsync<PokemonSpecies>(action.PokedexId);
+        var resultAction = new GetPokemonResultAction(pokemon, species);
         dispatcher.Dispatch(resultAction);
     }
 }
