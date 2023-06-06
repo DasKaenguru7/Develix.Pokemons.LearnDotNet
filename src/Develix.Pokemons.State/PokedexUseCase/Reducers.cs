@@ -13,6 +13,17 @@ public static class Reducers
         };
     }
 
+    [ReducerMethod(typeof(GetPokemonErrorAction))]
+    public static PokedexState ReduceGetPokemonErrorAction(PokedexState state)
+    {
+        return state with
+        {
+            IsLoading = false,
+            Pokemon = null,
+            Species = null,
+        };
+    }
+
     [ReducerMethod]
     public static PokedexState ReduceGetPokemonResultAction(PokedexState state, GetPokemonResultAction action)
     {
