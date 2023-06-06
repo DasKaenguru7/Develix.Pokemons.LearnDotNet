@@ -1,14 +1,14 @@
 ﻿@using PokeApiNet
 
-@if (Pokemon is not null)
+@if (Pokemon is not null && Species is not null)
 {
     <MudCard Class="pa-4 ma-2" Elevation="1">
         <MudCardHeader>
             <CardHeaderAvatar>
-                <MudAvatar>@Pokemon.Name[0]</MudAvatar>
+                <MudAvatar Style="@($"background-color:{GetPokemonTypeColor(Pokemon)}")">@GetPokemonName(Species)[0]</MudAvatar>
             </CardHeaderAvatar>
             <CardHeaderContent>
-                <MudText Typo="Typo.body1">@Pokemon.Name</MudText>
+                <MudText Typo="Typo.body1">@GetPokemonName(Species) </MudText>
                 <MudText Typo="Typo.body1">@GetPokemonTypeNames(Pokemon)</MudText>
             </CardHeaderContent>
         </MudCardHeader>

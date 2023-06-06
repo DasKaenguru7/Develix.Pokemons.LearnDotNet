@@ -1,4 +1,6 @@
-﻿namespace Develix.Pokemons.State.PokedexUseCase;
+﻿using System.Data;
+
+namespace Develix.Pokemons.State.PokedexUseCase;
 
 public static class Reducers
 {
@@ -17,6 +19,7 @@ public static class Reducers
         return state with
         {
             Pokemon = action.Pokemon,
+            Species = action.Species,
             IsLoading = false,
         };
     }
