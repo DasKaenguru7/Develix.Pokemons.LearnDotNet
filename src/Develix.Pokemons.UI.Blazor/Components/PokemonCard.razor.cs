@@ -58,14 +58,43 @@ public partial class PokemonCard
         };
     }
 
-    private string GetPokemonName(PokemonSpecies species)
+    private static string GetPokemonName(PokemonSpecies species)
     {
         return GetGermanName(species.Names);
     }
 
-    private string GetGermanName(IEnumerable<Names> names)
+    private static string GetPokemonGenus(PokemonSpecies species)
+    {
+        return GetGermanGenus(species.Genera);
+    }
+
+    private static string GetGermanName(IEnumerable<Names> names)
     {
         var name = names.Single(n => n.Language.Name == "de");
         return name.Name;
+    }
+
+    private static string GetGermanGenus(IEnumerable<Genuses> genera)
+    {
+        var genus = genera.Single(n => n.Language.Name == "de");
+        return genus.Genus;
+    }
+
+    private static string GetPokemonFlavorText(PokemonSpecies species)
+    {
+        return GetGermanFlavorText(species.FlavorTextEntries);
+    }
+
+    private static string GetGermanFlavorText(IEnumerable<PokemonSpeciesFlavorTexts> flavorTexts)
+    {
+        var flavorText = flavorTexts.LastOrDefault(n => n.Language.Name == "de");
+        if (flavorText == null)
+        {
+            return "nicht gefunden";
+        }
+        else
+        {
+            return flavorText.FlavorText;
+        }
     }
 }
