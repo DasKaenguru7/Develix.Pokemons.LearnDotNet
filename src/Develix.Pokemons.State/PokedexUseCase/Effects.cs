@@ -19,8 +19,14 @@ public class Effects
         try
         {
             var pokemon = await pokeApiClient.GetResourceAsync<Pokemon>(action.PokedexId);
+            var types = new List<PokeApiNet.Type>();
+            foreach(var type in pokemon.Types) 
+            {
+                var concreteType = await pokeApiClient.GetResourceAsync<PokeApiNet.Type>(type.Type.Name);
+                types.Add(concreteType);
+            }
             var species = await pokeApiClient.GetResourceAsync<PokemonSpecies>(action.PokedexId);
-            var resultAction = new GetPokemonResultAction(pokemon, species);
+            var resultAction = new GetPokemonResultAction(pokemon, species, types);
             dispatcher.Dispatch(resultAction);
         }
         catch

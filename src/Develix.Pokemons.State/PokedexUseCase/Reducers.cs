@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Xml;
 
 namespace Develix.Pokemons.State.PokedexUseCase;
 
@@ -21,6 +22,7 @@ public static class Reducers
             IsLoading = false,
             Pokemon = null,
             Species = null,
+            Types = new List<PokeApiNet.Type>(),
         };
     }
 
@@ -31,6 +33,7 @@ public static class Reducers
         {
             Pokemon = action.Pokemon,
             Species = action.Species,
+            Types = action.Types,
             IsLoading = false,
         };
     }
