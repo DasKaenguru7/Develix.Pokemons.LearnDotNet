@@ -16,9 +16,7 @@
             <MudImage ObjectFit="ObjectFit.ScaleDown" Width="100" Src="@Pokemon.Sprites.FrontDefault" Elevation="25" Class="rounded-lg" />
             <MudImage ObjectFit="ObjectFit.ScaleDown" Width="100" Src="@Pokemon.Sprites.BackDefault" Elevation="25" Class="rounded-lg" />
             <MudText Style="margin-top:1em;margin-left:0.3em" Typo="Typo.body2"><strong>Genus: </strong>@GetPokemonGenus(Species)</MudText>
-            <MudText Style="margin-top:1em;margin-left:0.3em" Typo="Typo.body2"><strong>Flavor Text: </strong>@GetPokemonFlavorText(Species)</MudText>
-
+            <MudText Style="margin-left:0.3em" Typo="Typo.body2"><strong>Flavor Text: </strong>@GetPokemonFlavorText(Species)</MudText>
         </MudCardContent>
-
     </MudCard>
 }
