@@ -90,7 +90,7 @@ public partial class PokemonCard
         var flavorText = flavorTexts.LastOrDefault(n => n.Language.Name == "de");
         if (flavorText == null)
         {
-            return "kein Flavor Text gefunden";
+            return "nicht gefunden";
         }
         else
         {
