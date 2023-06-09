@@ -23,7 +23,6 @@ public static class Reducers
             Pokemon = null,
             Species = null,
             Types = new List<PokeApiNet.Type>(),
-            Moves = new List<PokeApiNet.Move>(),
         };
     }
 
@@ -35,8 +34,25 @@ public static class Reducers
             Pokemon = action.Pokemon,
             Species = action.Species,
             Types = action.Types,
-            Moves = action.Moves,
             IsLoading = false,
+        };
+    }
+
+    [ReducerMethod]
+    public static PokedexState ReduceGetPokemonMovesAction(PokedexState state, GetPokemonMovesAction action)
+    {
+        return state with
+        {
+            Moves = new List<PokeApiNet.Move>(),
+        };
+    }
+    
+    [ReducerMethod]
+    public static PokedexState ReduceGetPokemonMovesResultAction(PokedexState state, GetPokemonMovesResultAction action)
+    {
+        return state with
+        {
+            Moves = action.Moves,
         };
     }
 }

@@ -19,22 +19,18 @@ public class Effects
         try
         {
             var pokemon = await pokeApiClient.GetResourceAsync<Pokemon>(action.PokedexId);
+            var movesAction = new GetPokemonMovesAction(pokemon, 5);
+            dispatcher.Dispatch(movesAction);
+
             var types = new List<PokeApiNet.Type>();
-            foreach(var type in pokemon.Types) 
+            foreach (var type in pokemon.Types)
             {
                 var concreteType = await pokeApiClient.GetResourceAsync<PokeApiNet.Type>(type.Type.Name);
                 types.Add(concreteType);
             }
 
-            var moves = new List<Move>();
-            foreach (var move in pokemon.Moves)
-            {
-                var concreteMove = await pokeApiClient.GetResourceAsync<Move>(move.Move.Name);
-                moves.Add(concreteMove);
-            }
-
             var species = await pokeApiClient.GetResourceAsync<PokemonSpecies>(action.PokedexId);
-            var resultAction = new GetPokemonResultAction(pokemon, species, types, moves);
+            var resultAction = new GetPokemonResultAction(pokemon, species, types);
             dispatcher.Dispatch(resultAction);
         }
         catch
@@ -50,5 +46,19 @@ public class Effects
         var message = $"Das Pokémon {action.PokemonId} existiert nicht!";
         snackbarService.ShowErrorMessage(message);
         return Task.CompletedTask;
+    }
+
+    [EffectMethod]
+    public async Task HandleGetPokemonMovesAction(GetPokemonMovesAction action, IDispatcher dispatcher)
+    {
+        var moves = new List<Move>();
+        foreach (var move in action.Pokemon.Moves.Take(action.Amount))
+        {
+            var concreteMove = await pokeApiClient.GetResourceAsync<Move>(move.Move.Name);
+            moves.Add(concreteMove);
+        }
+
+        var resultAction  = new GetPokemonMovesResultAction(moves);
+        dispatcher.Dispatch(resultAction);
     }
 }
