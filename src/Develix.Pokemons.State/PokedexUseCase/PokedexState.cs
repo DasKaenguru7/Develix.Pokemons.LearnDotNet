@@ -9,4 +9,5 @@ public record PokedexState
     public Pokemon? Pokemon { get; init; }
     public PokemonSpecies? Species { get; init; }
     public IReadOnlyList<PokeApiNet.Type> Types { get; init; } = new List<PokeApiNet.Type>();
+    public IReadOnlyList<Move> Moves { get; init; } = new List<Move>();
 }

@@ -23,6 +23,7 @@ public static class Reducers
             Pokemon = null,
             Species = null,
             Types = new List<PokeApiNet.Type>(),
+            Moves = new List<PokeApiNet.Move>(),
         };
     }
 
@@ -34,6 +35,7 @@ public static class Reducers
             Pokemon = action.Pokemon,
             Species = action.Species,
             Types = action.Types,
+            Moves = action.Moves,
             IsLoading = false,
         };
     }

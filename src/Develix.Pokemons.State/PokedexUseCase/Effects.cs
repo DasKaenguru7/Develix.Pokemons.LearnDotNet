@@ -25,8 +25,16 @@ public class Effects
                 var concreteType = await pokeApiClient.GetResourceAsync<PokeApiNet.Type>(type.Type.Name);
                 types.Add(concreteType);
             }
+
+            var moves = new List<Move>();
+            foreach (var move in pokemon.Moves)
+            {
+                var concreteMove = await pokeApiClient.GetResourceAsync<Move>(move.Move.Name);
+                moves.Add(concreteMove);
+            }
+
             var species = await pokeApiClient.GetResourceAsync<PokemonSpecies>(action.PokedexId);
-            var resultAction = new GetPokemonResultAction(pokemon, species, types);
+            var resultAction = new GetPokemonResultAction(pokemon, species, types, moves);
             dispatcher.Dispatch(resultAction);
         }
         catch
