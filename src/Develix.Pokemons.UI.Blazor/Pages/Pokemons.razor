@@ -3,7 +3,7 @@
 @using Develix.Pokemons.UI.Blazor.Components
 
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
-
+<PageTitle>Pokémon</PageTitle>
 <MudGrid>
     <MudItem xs="12" md="4">
         <MudPaper Class="pa-4 ma-2" Elevation="1">
@@ -12,7 +12,7 @@
                     <MudNumericField @bind-Value="pokedexId" Dense="true" Immediate="true" OnKeyDown="KeyPressedInInputField" />
                 </MudItem>
                 <MudItem xs="12">
-                    <MudButton Disabled="GetPokemonDisabled()" OnClick="GetPokemon">
+                    <MudButton Disabled="GetPokemonDisabled()" OnClick="GetPokemon" Variant="Variant.Outlined" Color="@Color.Primary">
                         @if (pokedexState.Value.IsLoading)
                         {
                             <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
