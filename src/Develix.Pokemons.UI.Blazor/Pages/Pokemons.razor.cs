@@ -21,6 +21,20 @@ public partial class Pokemons
         dispatcher.Dispatch(action);
     }
 
+    private void GetAllMoves()
+    {
+        if (pokedexState.Value.Pokemon is null)
+        {
+            return;
+        }
+        else
+        {
+            var moveCount = pokedexState.Value.Pokemon.Moves.Count;
+            var action = new GetPokemonMovesAction(pokedexState.Value.Pokemon, moveCount);
+            dispatcher.Dispatch(action);
+        }
+    }
+
     private void KeyPressedInInputField(KeyboardEventArgs e)
     {
         if (e.Key == "Enter" && !GetPokemonDisabled())
@@ -28,4 +42,6 @@ public partial class Pokemons
     }
 
     private bool GetPokemonDisabled() => pokedexState.Value.IsLoading;
+
+    private bool GetMovesDisabled() => pokedexState.Value.IsLoading || pokedexState.Value.Pokemon is null;
 }
