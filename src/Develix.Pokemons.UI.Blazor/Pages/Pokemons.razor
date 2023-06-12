@@ -30,13 +30,7 @@
     <MudItem xs="12" md="4">
         <PokemonCard Pokemon="pokedexState.Value.Pokemon" Species="pokedexState.Value.Species" TypeNames="pokedexState.Value.Types" />
     </MudItem>
-    <MudItem xs="12" md="4">
-        <MudPaper Class="pa-4 ma-2" Elevation="1">
-            <MudTable Items="pokedexState.Value.Moves">
-            </MudTable>
-            <MudButton Disabled="@GetMovesDisabled()" OnClick="GetAllMoves" Variant="Variant.Outlined" Color="@Color.Primary">
-                Moves
-            </MudButton>
-        </MudPaper>
+    <MudItem xs="12">
+        <PokemonMovesTable Pokemon="pokedexState.Value.Pokemon" Moves="pokedexState.Value.Moves" IsLoading="pokedexState.Value.IsLoading" />
     </MudItem>
 </MudGrid>

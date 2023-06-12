@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Xml;
+using PokeApiNet;
 
 namespace Develix.Pokemons.State.PokedexUseCase;
 
@@ -23,6 +24,7 @@ public static class Reducers
             Pokemon = null,
             Species = null,
             Types = new List<PokeApiNet.Type>(),
+            Moves = new List<PokeApiNet.Move>(),
         };
     }
 
@@ -43,16 +45,16 @@ public static class Reducers
     {
         return state with
         {
-            Moves = new List<PokeApiNet.Move>(),
+            Moves = new List<Move>(),
         };
     }
-    
+
     [ReducerMethod]
-    public static PokedexState ReduceGetPokemonMovesResultAction(PokedexState state, GetPokemonMovesResultAction action)
+    public static PokedexState ReduceGetPokemonMovesResultAction(PokedexState state, AddPokemonMoveAction action)
     {
         return state with
         {
-            Moves = action.Moves,
+            Moves = new List<Move>(state.Moves) { action.Move },
         };
     }
 }

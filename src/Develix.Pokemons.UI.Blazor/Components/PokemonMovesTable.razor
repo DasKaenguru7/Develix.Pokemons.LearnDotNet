@@ -1,0 +1,38 @@
+﻿@if (Moves.Count > 0)
+{
+    <MudPaper Class="pa-4 ma-2" Elevation="1">
+        <MudTable Items="Moves">
+            <HeaderContent>
+                <MudTh>Attacke</MudTh>
+                <MudTh>Art</MudTh>
+                <MudTh>Beschreibung</MudTh>
+                <MudTh>Priorität</MudTh>
+                <MudTh>Treferquote</MudTh>
+                <MudTh>Ap</MudTh>
+                <MudTh>Effecktschongs</MudTh>
+                <MudTh>Power</MudTh>
+                <MudTh>Effeckt</MudTh>
+                <MudTh></MudTh>
+                <MudTh></MudTh>
+                <MudTh></MudTh>
+                <MudTh></MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Attack">@GetGermanAttackeName(context.Names)</MudTd>
+                <MudTd DataLabel="Art">@context.DamageClass</MudTd>
+                <MudTd DataLabel="Beschreibung">@GetGermanFlavorText(context.FlavorTextEntries)</MudTd>
+                <MudTd DataLabel="Priorität">@context.Priority</MudTd>
+                <MudTd DataLabel="Treferquote">@context.Accuracy</MudTd>
+                <MudTd DataLabel="Ap">@context.Pp</MudTd>
+                <MudTd DataLabel="Effecktschangs">@context.EffectChance</MudTd>
+                <MudTd DataLabel="Power">@context.Power</MudTd>
+                <MudTd DataLabel="Effeckt">@context.EffectEntries</MudTd>
+            </RowTemplate>
+        </MudTable>
+        <MudButton Disabled="@GetMovesDisabled()" OnClick="GetAllMoves" Variant="Variant.Outlined" Color="@Color.Primary">
+            Moves
+        </MudButton>
+    </MudPaper>
+}
+

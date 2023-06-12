@@ -51,14 +51,12 @@ public class Effects
     [EffectMethod]
     public async Task HandleGetPokemonMovesAction(GetPokemonMovesAction action, IDispatcher dispatcher)
     {
-        var moves = new List<Move>();
         foreach (var move in action.Pokemon.Moves.Take(action.Amount))
         {
             var concreteMove = await pokeApiClient.GetResourceAsync<Move>(move.Move.Name);
-            moves.Add(concreteMove);
+            var addAction = new AddPokemonMoveAction(concreteMove);
+            dispatcher.Dispatch(addAction);
         }
 
-        var resultAction  = new GetPokemonMovesResultAction(moves);
-        dispatcher.Dispatch(resultAction);
     }
 }

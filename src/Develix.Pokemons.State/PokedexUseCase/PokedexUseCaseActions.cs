@@ -10,4 +10,4 @@ public record GetPokemonResultAction(Pokemon Pokemon, PokemonSpecies Species, IR
 
 public record GetPokemonMovesAction(Pokemon Pokemon, int Amount);
 
-public record GetPokemonMovesResultAction(IReadOnlyList<Move> Moves);
+public record AddPokemonMoveAction(Move Move);
