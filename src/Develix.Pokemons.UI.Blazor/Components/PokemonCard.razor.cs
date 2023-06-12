@@ -76,8 +76,15 @@ public partial class PokemonCard
 
     private static string GetGermanGenus(IEnumerable<Genuses> genera)
     {
-        var genus = genera.Single(n => n.Language.Name == "de");
-        return genus.Genus;
+        var genus = genera.SingleOrDefault(n => n.Language.Name == "de");
+        if (genus == null)
+        {
+            return "nicht gefunden";
+        }
+        else
+        {
+            return genus.Genus;
+        }
     }
 
     private static string GetPokemonFlavorText(PokemonSpecies species)
