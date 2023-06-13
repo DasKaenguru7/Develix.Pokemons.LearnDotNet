@@ -1,0 +1,37 @@
+﻿@if (Moves.Count > 0)
+{
+    <MudPaper Class="pa-4 ma-2" Elevation="1">
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTable Items="Moves">
+                    <HeaderContent>
+                        <MudTh>Attacke</MudTh>
+                        <MudTh>Kraft</MudTh>
+                        <MudTh>Treferquote</MudTh>
+                        <MudTh>Effecktchance</MudTh>
+                        <MudTh>Ap</MudTh>
+                        <MudTh>Priorität</MudTh>
+                        <MudTh>Beschreibung</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Attack">@GetGermanAttackeName(context.Names)</MudTd>
+                        <MudTd DataLabel="Kraft">@GetDisplayName(context.Power)</MudTd>
+                        <MudTd DataLabel="Treferquote">@GetDisplayName(context.Accuracy)</MudTd>
+                        <MudTd DataLabel="Effektchance">@GetDisplayName(context.EffectChance)</MudTd>
+                        <MudTd DataLabel="Ap">@GetDisplayName(context.Pp)</MudTd>
+                        <MudTd DataLabel="Priorität">@GetDisplayName(context.Priority)</MudTd>
+                        <MudTd DataLabel="Beschreibung">@GetGermanFlavorText(context.FlavorTextEntries)</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager HideRowsPerPage="true" PageSizeOptions="new int[]{10}" />
+                    </PagerContent>
+                </MudTable>
+            </MudItem>
+            <MudItem>
+                <MudButton Disabled="@GetMovesDisabled()" OnClick="GetAllMoves" Variant="Variant.Outlined" Color="@Color.Primary">
+                    Moves
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+}
