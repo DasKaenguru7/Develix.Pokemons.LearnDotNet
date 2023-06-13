@@ -1,4 +1,5 @@
-﻿using Develix.Pokemons.State.PokedexUseCase;
+﻿using System.Reflection.Metadata.Ecma335;
+using Develix.Pokemons.State.PokedexUseCase;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using PokeApiNet;
@@ -59,6 +60,17 @@ public partial class PokemonMovesTable
         else
         {
             return attackeName.Name;
+        }
+    }
+    private string GetDisplayName(int? value)
+    {
+        if (value == null)
+        {
+            return "-";
+        }
+        else
+        {
+            return value.ToString();
         }
     }
 
