@@ -57,6 +57,5 @@ public class Effects
             var addAction = new AddPokemonMoveAction(concreteMove);
             dispatcher.Dispatch(addAction);
         }
-
     }
 }
