@@ -50,7 +50,7 @@ public static class Reducers
     }
 
     [ReducerMethod]
-    public static PokedexState ReduceAddPokemonMovesAction(PokedexState state, AddPokemonMoveAction action)
+    public static PokedexState ReduceAddPokemonMoveAction(PokedexState state, AddPokemonMoveAction action)
     {
         return state with
         {
