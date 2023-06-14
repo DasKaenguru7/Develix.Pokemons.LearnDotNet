@@ -21,7 +21,7 @@
             <MudText Style="margin-left:0.3em" Typo="Typo.body2"><strong>Flavor Text: </strong>@GetPokemonFlavorText(Species)</MudText>
                 </MudItem>
                 <MudItem>
-                    <ApexChart Title="foo" TItem="PokemonStat" Debug>
+                    <ApexChart @ref="chart" Title="foo" TItem="PokemonStat">
                         <ApexPointSeries TItem="PokemonStat" Items=@Pokemon.Stats SeriesType="SeriesType.Radar" XValue="@(e => e.Stat.Name)" YValue="@(e => e.BaseStat)">
                         </ApexPointSeries>
                     </ApexChart>

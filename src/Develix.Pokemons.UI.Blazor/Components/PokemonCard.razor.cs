@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
+﻿using ApexCharts;
+using Microsoft.AspNetCore.Components;
 using PokeApiNet;
 
 namespace Develix.Pokemons.UI.Blazor.Components;
 
 public partial class PokemonCard
 {
+    private ApexChart<PokemonStat>? chart;
+
     [Parameter]
     [EditorRequired]
     public Pokemon? Pokemon { get; set; }
@@ -104,5 +106,12 @@ public partial class PokemonCard
         {
             return flavorText.FlavorText;
         }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (chart is not null)
+            await chart.UpdateSeriesAsync(true);
     }
 }
