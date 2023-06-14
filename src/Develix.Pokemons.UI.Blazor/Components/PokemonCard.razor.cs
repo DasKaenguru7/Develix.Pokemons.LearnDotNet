@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PokeApiNet;
 
 namespace Develix.Pokemons.UI.Blazor.Components;

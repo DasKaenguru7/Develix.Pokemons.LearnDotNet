@@ -44,7 +44,7 @@ public static class Reducers
     public static PokedexState ReduceGetPokemonMovesAction(PokedexState state, GetPokemonMovesAction action)
     {
         return state with
-        {
+        { 
             Moves = new List<Move>(),
         };
     }
