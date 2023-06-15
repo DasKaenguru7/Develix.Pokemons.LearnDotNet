@@ -15,7 +15,7 @@ public partial class PokemonCard
             Radar = new PlotOptionsRadar()
             {
                 Size = 88
-            },            
+            },
         }
     };
 
