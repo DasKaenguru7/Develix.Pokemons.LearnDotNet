@@ -134,9 +134,9 @@ public partial class PokemonCard
             "hp" => ("HP", 1),
             "attack" => ("Atk", 2),
             "defense" => ("Def", 3),
-            "special-attack" => ("Sp.Atk", 6),
-            "special-defense" => ("Sp.Def", 5),
             "speed" => ("Init", 4),
+            "special-defense" => ("Sp.Def", 5),
+            "special-attack" => ("Sp.Atk", 6),
             _ => ("?", 7),
         };
         return new PokemonStatDisplay(name, pokemonStat.BaseStat, order);
