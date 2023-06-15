@@ -1,27 +1,32 @@
-﻿@if (Moves.Count > 0)
+﻿@using Develix.Pokemons.State.Moves;
+@if (Moves.Count > 0)
 {
     <MudPaper Class="pa-4 ma-2" Elevation="1">
         <MudGrid>
             <MudItem xs="12">
-                <MudTable Items="Moves">
+                <MudTable T="PokemonMoveTableRow" Items="Moves" OnRowClick="RowClickEvent">
                     <HeaderContent>
-                        <MudTh>Attacke</MudTh>
-                        <MudTh>Kraft</MudTh>
-                        <MudTh>Treferquote</MudTh>
-                        <MudTh>Effecktchance</MudTh>
-                        <MudTh>Ap</MudTh>
-                        <MudTh>Priorität</MudTh>
-                        <MudTh>Beschreibung</MudTh>
+                        <MudTh>Id</MudTh>
+                        <MudTh>Name</MudTh>
                     </HeaderContent>
                     <RowTemplate>
-                        <MudTd DataLabel="Attack">@GetGermanAttackeName(context.Names)</MudTd>
-                        <MudTd DataLabel="Kraft">@GetDisplayName(context.Power)</MudTd>
-                        <MudTd DataLabel="Treferquote">@GetDisplayName(context.Accuracy)</MudTd>
-                        <MudTd DataLabel="Effektchance">@GetDisplayName(context.EffectChance)</MudTd>
-                        <MudTd DataLabel="Ap">@GetDisplayName(context.Pp)</MudTd>
-                        <MudTd DataLabel="Priorität">@GetDisplayName(context.Priority)</MudTd>
-                        <MudTd DataLabel="Beschreibung">@GetGermanFlavorText(context.FlavorTextEntries)</MudTd>
+                        <MudTd DataLabel="Id">@context.Id</MudTd>
+                        <MudTd DataLabel="Name">@GetGermanAttackeName(context.Names)</MudTd>
                     </RowTemplate>
+                    <ChildRowContent>
+                        @if (context.ShowDetails)
+                        {
+                            <MudTr>Accuracy: @context.Accuracy</MudTr>
+                            <MudTr>Pp: @GetDisplayName(context.Pp)</MudTr>
+                            <MudTr>Power: @GetDisplayName(context.Power)</MudTr>
+                            <MudTr> Target: @context.Target</MudTr>
+                            <MudTr> EffectEntries: @GetGermanEffectEntriesName(context.EffectEntries)</MudTr>
+                            <MudTr> Effectchance: @GetDisplayName(context.EffectChance)</MudTr>
+                            <MudTr> DamageClass: @context.DamageClass</MudTr>
+                            <MudTr> FlavorTexetEntries: @GetGermanFlavorText(context.FlavorTextEntries)</MudTr>
+                            <MudTr> Priority: @context.Priority</MudTr>
+                        }
+                    </ChildRowContent>
                     <PagerContent>
                         <MudTablePager HideRowsPerPage="true" PageSizeOptions="new int[]{10}" />
                     </PagerContent>

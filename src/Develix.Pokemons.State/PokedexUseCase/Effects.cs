@@ -1,4 +1,5 @@
-﻿using PokeApiNet;
+﻿using Develix.Pokemons.State.Moves;
+using PokeApiNet;
 
 namespace Develix.Pokemons.State.PokedexUseCase;
 
@@ -54,7 +55,8 @@ public class Effects
         foreach (var move in action.Pokemon.Moves.Take(action.Amount))
         {
             var concreteMove = await pokeApiClient.GetResourceAsync<Move>(move.Move.Name);
-            var addAction = new AddPokemonMoveAction(concreteMove);
+            var concreteMoveTableRow = new PokemonMoveTableRow(concreteMove);
+            var addAction = new AddPokemonMoveAction(concreteMoveTableRow);
             dispatcher.Dispatch(addAction);
         }
     }

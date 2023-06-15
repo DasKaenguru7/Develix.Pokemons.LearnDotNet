@@ -1,8 +1,10 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using Develix.Pokemons.State.Moves;
 using Develix.Pokemons.State.PokedexUseCase;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PokeApiNet;
+using static MudBlazor.CategoryTypes;
 
 namespace Develix.Pokemons.UI.Blazor.Components;
 
@@ -17,7 +19,7 @@ public partial class PokemonMovesTable
 
     [Parameter]
     [EditorRequired]
-    public IReadOnlyList<Move> Moves { get; set; } = new List<Move>();
+    public IReadOnlyList<PokemonMoveTableRow> Moves { get; set; } = new List<PokemonMoveTableRow>();
 
     [Parameter]
     [EditorRequired]
@@ -74,5 +76,29 @@ public partial class PokemonMovesTable
         }
     }
 
+    private void RowClickEvent(TableRowClickEventArgs<PokemonMoveTableRow> row)
+    {
+        if (row.Item.ShowDetails == false)
+            row.Item.ShowDetails = true;
+        else
+            row.Item.ShowDetails = false;
+    }
     private bool GetMovesDisabled() => IsLoading;
+
+    private string GetGermanEffectEntriesName(IEnumerable<VerboseEffect> verboseEffects)
+    {
+        var verboseEffectName = verboseEffects.FirstOrDefault(n => n.Language.Name == "de");
+        if (verboseEffectName == null)
+        { 
+            verboseEffectName = verboseEffects.FirstOrDefault(n => n.Language.Name == "en");
+        }
+        if (verboseEffectName == null)
+        {
+            return "nicht gefunden";
+        }
+        else
+        {
+            return verboseEffectName.Effect;
+        }
+    }
 }
