@@ -1,10 +1,24 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using ApexCharts;
+using Develix.Pokemons.UI.Blazor.Model;
+using Microsoft.AspNetCore.Components;
 using PokeApiNet;
 
 namespace Develix.Pokemons.UI.Blazor.Components;
 
 public partial class PokemonCard
 {
+    private ApexChart<PokemonStatDisplay>? chart;
+    private ApexChartOptions<PokemonStatDisplay> options = new ApexChartOptions<PokemonStatDisplay>()
+    {
+        PlotOptions = new PlotOptions()
+        {
+            Radar = new PlotOptionsRadar()
+            {
+                Size = 88
+            },
+        }
+    };
+
     [Parameter]
     [EditorRequired]
     public Pokemon? Pokemon { get; set; }
@@ -103,5 +117,35 @@ public partial class PokemonCard
         {
             return flavorText.FlavorText;
         }
+    }
+
+    private IReadOnlyList<PokemonStatDisplay> GetPokemonStatDisplays(Pokemon pokemon)
+    {
+        return pokemon.Stats
+            .Select(s => GetPokemonStatDisplay(s))
+            .OrderBy(s => s.Order)
+            .ToList();
+    }
+
+    private PokemonStatDisplay GetPokemonStatDisplay(PokemonStat pokemonStat)
+    {
+        var (name, order) = pokemonStat.Stat.Name switch
+        {
+            "hp" => ("HP", 1),
+            "attack" => ("Atk", 2),
+            "defense" => ("Def", 3),
+            "speed" => ("Init", 4),
+            "special-defense" => ("Sp.Def", 5),
+            "special-attack" => ("Sp.Atk", 6),
+            _ => ("?", 7),
+        };
+        return new PokemonStatDisplay(name, pokemonStat.BaseStat, order);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (chart is not null && Pokemon is not null)
+            await chart.UpdateSeriesAsync(true);
     }
 }

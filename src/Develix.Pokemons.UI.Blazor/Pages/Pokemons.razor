@@ -12,7 +12,7 @@
                     <MudNumericField @bind-Value="pokedexId" Dense="true" Immediate="true" OnKeyDown="KeyPressedInInputField" />
                 </MudItem>
                 <MudItem xs="12">
-                    <MudButton Disabled="GetPokemonDisabled()" OnClick="GetPokemon" Variant="Variant.Outlined" Color="@Color.Primary">
+                    <MudButton Disabled="GetPokemonDisabled()" OnClick="GetPokemon" Variant="Variant.Outlined" Color="@MudBlazor.Color.Primary">
                         @if (pokedexState.Value.IsLoading)
                         {
                             <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
@@ -27,7 +27,7 @@
             </MudGrid>
         </MudPaper>
     </MudItem>
-    <MudItem xs="12" md="4">
+    <MudItem xs="12" md="8">
         <PokemonCard Pokemon="pokedexState.Value.Pokemon" Species="pokedexState.Value.Species" TypeNames="pokedexState.Value.Types" />
     </MudItem>
     <MudItem xs="12">
