@@ -8,15 +8,24 @@ namespace Develix.Pokemons.UI.Blazor.Components;
 public partial class PokemonCard
 {
     private ApexChart<PokemonStatDisplay>? chart;
-    private ApexChartOptions<PokemonStatDisplay> options = new ApexChartOptions<PokemonStatDisplay>()
+    private readonly ApexChartOptions<PokemonStatDisplay> options = new ApexChartOptions<PokemonStatDisplay>()
     {
         PlotOptions = new PlotOptions()
         {
             Radar = new PlotOptionsRadar()
             {
-                Size = 88
+                Size = 89
             },
-        }
+        },
+        Yaxis = new List<YAxis>
+        {
+            new YAxis()
+            {
+                Max = 200,
+                Min  = 0,
+                TickAmount = 4,
+            }
+        },
     };
 
     [Parameter]
