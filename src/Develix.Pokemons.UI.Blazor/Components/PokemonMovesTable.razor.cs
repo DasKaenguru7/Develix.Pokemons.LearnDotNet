@@ -76,6 +76,18 @@ public partial class PokemonMovesTable
         }
     }
 
+    private string? GetPercentDisplayName(int? value)
+    {
+        if (value == null)
+        {
+            return "-";
+        }
+        else
+        {
+            return value.ToString() + "%";
+        }
+    }
+
     private void RowClickEvent(TableRowClickEventArgs<PokemonMoveTableRow> row)
     {
         var action = new ShowMoveDetailsAction(row.Item);

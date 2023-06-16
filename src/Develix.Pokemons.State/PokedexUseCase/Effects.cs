@@ -66,7 +66,10 @@ public class Effects
     public async Task HandleShowMoveDetailsAction(ShowMoveDetailsAction action, IDispatcher dispatcher)
     {
         var damageClass = await pokeApiClient.GetResourceAsync<MoveDamageClass>(action.Move.ApiDamageClass.Name);
-        var resultAction = new ShowMoveDetailsResultAction(action.Move, damageClass);
+        var target = await pokeApiClient.GetResourceAsync<MoveTarget>(action.Move.ApiTarget.Name);
+        var type = await pokeApiClient.GetResourceAsync<PokeApiNet.Type>(action.Move.ApiType.Name);
+        var resultAction = new ShowMoveDetailsResultAction(action.Move, damageClass, target, type);
         dispatcher.Dispatch(resultAction);
+
     }
 }

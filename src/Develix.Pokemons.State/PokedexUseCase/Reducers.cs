@@ -76,10 +76,15 @@ public static class Reducers
         var currentMove = state.Moves.FirstOrDefault(m => m.Id == action.Move.Id);
         if (currentMove != null)
         {
-            var moveWithDamageClass = currentMove with { DamageClass = action.MoveDamageClass };
+            var moveWithApiData = currentMove with 
+            {
+                DamageClass = action.MoveDamageClass,
+                Target = action.MoveTarget,
+                Type = action.Type
+            };
             var moveList = state.Moves.ToList();
             var index = moveList.IndexOf(currentMove);
-            moveList[index] = moveWithDamageClass;
+            moveList[index] = moveWithApiData;
             return state with
             {
                 Moves = moveList
