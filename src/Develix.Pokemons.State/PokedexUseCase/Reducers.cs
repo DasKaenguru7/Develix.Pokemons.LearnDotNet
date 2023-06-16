@@ -80,14 +80,14 @@ public static class Reducers
             {
                 DamageClass = action.MoveDamageClass,
                 Target = action.MoveTarget,
-                Type = action.Type
+                Type = action.Type,
             };
             var moveList = state.Moves.ToList();
             var index = moveList.IndexOf(currentMove);
             moveList[index] = moveWithApiData;
             return state with
             {
-                Moves = moveList
+                Moves = moveList,
             };
         }
         return state;

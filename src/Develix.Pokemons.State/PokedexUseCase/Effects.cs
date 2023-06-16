@@ -70,6 +70,5 @@ public class Effects
         var type = await pokeApiClient.GetResourceAsync<PokeApiNet.Type>(action.Move.ApiType.Name);
         var resultAction = new ShowMoveDetailsResultAction(action.Move, damageClass, target, type);
         dispatcher.Dispatch(resultAction);
-
     }
 }

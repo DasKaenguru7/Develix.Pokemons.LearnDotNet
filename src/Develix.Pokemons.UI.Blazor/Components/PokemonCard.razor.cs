@@ -10,15 +10,11 @@ public partial class PokemonCard
     private ApexChart<PokemonStatDisplay>? chart;
     private ApexChartOptions<PokemonStatDisplay> options = new ApexChartOptions<PokemonStatDisplay>()
     {
-        Yaxis = new List<YAxis>{ new YAxis()
-        {
-            Max = 100,
-        } },
         PlotOptions = new PlotOptions()
         {
             Radar = new PlotOptionsRadar()
             {
-                Size = 88,
+                Size = 88
             },
         }
     };

@@ -4,7 +4,6 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using PokeApiNet;
-using static MudBlazor.CategoryTypes;
 
 namespace Develix.Pokemons.UI.Blazor.Components;
 
@@ -93,6 +92,7 @@ public partial class PokemonMovesTable
         var action = new ShowMoveDetailsAction(row.Item);
         Dispatcher?.Dispatch(action);
     }
+
     private bool GetMovesDisabled() => IsLoading;
 
     private string GetGermanEffectEntriesName(IEnumerable<VerboseEffect> verboseEffects)

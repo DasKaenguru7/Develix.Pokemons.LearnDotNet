@@ -21,7 +21,6 @@ public record PokemonMoveTableRow
     public MoveTarget? Target { get; init; }
     public PokeApiNet.Type? Type { get; init; }
 
-
     public PokemonMoveTableRow(Move move)
     {
         Accuracy = move.Accuracy;
@@ -38,5 +37,5 @@ public record PokemonMoveTableRow
         Power = move.Power;
         Priority = move.Priority;
         ShowDetails = false;
-        }
+    }
 }

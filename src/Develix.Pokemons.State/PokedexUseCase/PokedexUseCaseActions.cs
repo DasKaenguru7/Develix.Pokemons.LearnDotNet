@@ -14,4 +14,5 @@ public record GetPokemonMovesAction(Pokemon Pokemon, int Amount);
 public record AddPokemonMoveAction(PokemonMoveTableRow Move);
 
 public record ShowMoveDetailsAction(PokemonMoveTableRow Move);
+
 public record ShowMoveDetailsResultAction(PokemonMoveTableRow Move, MoveDamageClass MoveDamageClass, MoveTarget MoveTarget, PokeApiNet.Type Type);
