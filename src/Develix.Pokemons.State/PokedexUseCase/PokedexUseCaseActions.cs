@@ -1,4 +1,5 @@
-﻿using PokeApiNet;
+﻿using Develix.Pokemons.State.Moves;
+using PokeApiNet;
 
 namespace Develix.Pokemons.State.PokedexUseCase;
 
@@ -10,4 +11,8 @@ public record GetPokemonResultAction(Pokemon Pokemon, PokemonSpecies Species, IR
 
 public record GetPokemonMovesAction(Pokemon Pokemon, int Amount);
 
-public record AddPokemonMoveAction(Move Move);
+public record AddPokemonMoveAction(PokemonMoveTableRow Move);
+
+public record ShowMoveDetailsAction(PokemonMoveTableRow Move);
+
+public record ShowMoveDetailsResultAction(PokemonMoveTableRow Move, MoveDamageClass MoveDamageClass, MoveTarget MoveTarget, PokeApiNet.Type Type);

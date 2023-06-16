@@ -1,4 +1,6 @@
-﻿using PokeApiNet;
+﻿using Develix.Pokemons.State.Moves;
+using Microsoft.VisualBasic;
+using PokeApiNet;
 
 namespace Develix.Pokemons.State.PokedexUseCase;
 
@@ -54,8 +56,19 @@ public class Effects
         foreach (var move in action.Pokemon.Moves.Take(action.Amount))
         {
             var concreteMove = await pokeApiClient.GetResourceAsync<Move>(move.Move.Name);
-            var addAction = new AddPokemonMoveAction(concreteMove);
+            var concreteMoveTableRow = new PokemonMoveTableRow(concreteMove);
+            var addAction = new AddPokemonMoveAction(concreteMoveTableRow);
             dispatcher.Dispatch(addAction);
         }
+    }
+
+    [EffectMethod]
+    public async Task HandleShowMoveDetailsAction(ShowMoveDetailsAction action, IDispatcher dispatcher)
+    {
+        var damageClass = await pokeApiClient.GetResourceAsync<MoveDamageClass>(action.Move.ApiDamageClass.Name);
+        var target = await pokeApiClient.GetResourceAsync<MoveTarget>(action.Move.ApiTarget.Name);
+        var type = await pokeApiClient.GetResourceAsync<PokeApiNet.Type>(action.Move.ApiType.Name);
+        var resultAction = new ShowMoveDetailsResultAction(action.Move, damageClass, target, type);
+        dispatcher.Dispatch(resultAction);
     }
 }

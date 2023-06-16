@@ -1,7 +1,8 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using Develix.Pokemons.State.Moves;
 using Develix.Pokemons.State.PokedexUseCase;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PokeApiNet;
 
 namespace Develix.Pokemons.UI.Blazor.Components;
@@ -17,7 +18,7 @@ public partial class PokemonMovesTable
 
     [Parameter]
     [EditorRequired]
-    public IReadOnlyList<Move> Moves { get; set; } = new List<Move>();
+    public IReadOnlyList<PokemonMoveTableRow> Moves { get; set; } = new List<PokemonMoveTableRow>();
 
     [Parameter]
     [EditorRequired]
@@ -50,9 +51,9 @@ public partial class PokemonMovesTable
         }
     }
 
-    private string GetGermanAttackeName(IEnumerable<Names> names)
+    private string GetGermanName(IEnumerable<Names>? names)
     {
-        var attackeName = names.FirstOrDefault(n => n.Language.Name == "de");
+        var attackeName = names?.FirstOrDefault(n => n.Language.Name == "de");
         if (attackeName == null)
         {
             return "nicht gefunden";
@@ -62,7 +63,7 @@ public partial class PokemonMovesTable
             return attackeName.Name;
         }
     }
-    private string GetDisplayName(int? value)
+    private string? GetDisplayName(int? value)
     {
         if (value == null)
         {
@@ -74,5 +75,40 @@ public partial class PokemonMovesTable
         }
     }
 
+    private string? GetPercentDisplayName(int? value)
+    {
+        if (value == null)
+        {
+            return "-";
+        }
+        else
+        {
+            return value.ToString() + "%";
+        }
+    }
+
+    private void RowClickEvent(TableRowClickEventArgs<PokemonMoveTableRow> row)
+    {
+        var action = new ShowMoveDetailsAction(row.Item);
+        Dispatcher?.Dispatch(action);
+    }
+
     private bool GetMovesDisabled() => IsLoading;
+
+    private string GetGermanEffectEntriesName(IEnumerable<VerboseEffect> verboseEffects)
+    {
+        var verboseEffectName = verboseEffects.FirstOrDefault(n => n.Language.Name == "de");
+        if (verboseEffectName == null)
+        { 
+            verboseEffectName = verboseEffects.FirstOrDefault(n => n.Language.Name == "en");
+        }
+        if (verboseEffectName == null)
+        {
+            return "nicht gefunden";
+        }
+        else
+        {
+            return verboseEffectName.Effect;
+        }
+    }
 }

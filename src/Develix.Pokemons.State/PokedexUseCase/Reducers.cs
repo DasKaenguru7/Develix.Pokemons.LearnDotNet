@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using System.ComponentModel;
+using System.Data;
 using System.Xml;
+using Develix.Pokemons.State.Moves;
 using PokeApiNet;
 
 namespace Develix.Pokemons.State.PokedexUseCase;
@@ -24,7 +26,7 @@ public static class Reducers
             Pokemon = null,
             Species = null,
             Types = new List<PokeApiNet.Type>(),
-            Moves = new List<PokeApiNet.Move>(),
+            Moves = new List<PokemonMoveTableRow>(),
         };
     }
 
@@ -44,8 +46,8 @@ public static class Reducers
     public static PokedexState ReduceGetPokemonMovesAction(PokedexState state, GetPokemonMovesAction action)
     {
         return state with
-        { 
-            Moves = new List<Move>(),
+        {
+            Moves = new List<PokemonMoveTableRow>(),
         };
     }
 
@@ -54,7 +56,40 @@ public static class Reducers
     {
         return state with
         {
-            Moves = new List<Move>(state.Moves) { action.Move },
+            Moves = new List<PokemonMoveTableRow>(state.Moves) { action.Move },
         };
+    }
+
+    [ReducerMethod]
+    public static PokedexState ReduceShowMoveDetailsAction(PokedexState state, ShowMoveDetailsAction action)
+    {
+        var currentMove = state.Moves.FirstOrDefault(m => m.Id == action.Move.Id);
+        if (currentMove != null)
+            currentMove.ShowDetails = !currentMove.ShowDetails;
+
+        return state;
+    }
+
+    [ReducerMethod]
+    public static PokedexState ReduceShowMoveDetailsResultAction(PokedexState state, ShowMoveDetailsResultAction action)
+    {
+        var currentMove = state.Moves.FirstOrDefault(m => m.Id == action.Move.Id);
+        if (currentMove != null)
+        {
+            var moveWithApiData = currentMove with 
+            {
+                DamageClass = action.MoveDamageClass,
+                Target = action.MoveTarget,
+                Type = action.Type,
+            };
+            var moveList = state.Moves.ToList();
+            var index = moveList.IndexOf(currentMove);
+            moveList[index] = moveWithApiData;
+            return state with
+            {
+                Moves = moveList,
+            };
+        }
+        return state;
     }
 }

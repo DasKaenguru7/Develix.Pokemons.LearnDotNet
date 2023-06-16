@@ -1,27 +1,69 @@
-﻿@if (Moves.Count > 0)
+﻿@using Develix.Pokemons.State.Moves;
+@if (Moves.Count > 0)
 {
     <MudPaper Class="pa-4 ma-2" Elevation="1">
         <MudGrid>
             <MudItem xs="12">
-                <MudTable Items="Moves">
+                <MudTable T="PokemonMoveTableRow" Items="Moves" OnRowClick="RowClickEvent">
                     <HeaderContent>
-                        <MudTh>Attacke</MudTh>
-                        <MudTh>Kraft</MudTh>
-                        <MudTh>Treferquote</MudTh>
-                        <MudTh>Effecktchance</MudTh>
-                        <MudTh>Ap</MudTh>
-                        <MudTh>Priorität</MudTh>
-                        <MudTh>Beschreibung</MudTh>
+                        <MudTh>Id</MudTh>
+                        <MudTh>Name</MudTh>
                     </HeaderContent>
                     <RowTemplate>
-                        <MudTd DataLabel="Attack">@GetGermanAttackeName(context.Names)</MudTd>
-                        <MudTd DataLabel="Kraft">@GetDisplayName(context.Power)</MudTd>
-                        <MudTd DataLabel="Treferquote">@GetDisplayName(context.Accuracy)</MudTd>
-                        <MudTd DataLabel="Effektchance">@GetDisplayName(context.EffectChance)</MudTd>
-                        <MudTd DataLabel="Ap">@GetDisplayName(context.Pp)</MudTd>
-                        <MudTd DataLabel="Priorität">@GetDisplayName(context.Priority)</MudTd>
-                        <MudTd DataLabel="Beschreibung">@GetGermanFlavorText(context.FlavorTextEntries)</MudTd>
+                        <MudTd DataLabel="Id">@context.Id</MudTd>
+                        <MudTd DataLabel="Name">@GetGermanName(context.Names)</MudTd>
                     </RowTemplate>
+                    <ChildRowContent>
+                        @if (context.ShowDetails)
+                        {
+                            <MudTr>
+                                <MudTd colspan="2">
+                                    <MudSimpleTable Dense="true">
+                                        <MudTr>
+                                            <MudTd>Trefferquote</MudTd>
+                                            <MudTd>@GetPercentDisplayName(context.Accuracy)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Ap</MudTd>
+                                            <MudTd>@GetDisplayName(context.Pp)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Stärke</MudTd>
+                                            <MudTd>@GetDisplayName(context.Power)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Typ</MudTd>
+                                            <MudTd>@GetGermanName(@context.Type?.Names)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Ziel</MudTd>
+                                            <MudTd>@GetGermanName(@context.Target?.Names)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Effekt</MudTd>
+                                            <MudTd>@GetGermanEffectEntriesName(context.EffectEntries)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Effekt Chance</MudTd>
+                                            <MudTd>@GetPercentDisplayName(context.EffectChance)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Schadensklasse</MudTd>
+                                            <MudTd>@GetGermanName(@context.DamageClass?.Names)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Beschreibung</MudTd>
+                                            <MudTd>@GetGermanFlavorText(context.FlavorTextEntries)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Priorität</MudTd>
+                                            <MudTd>@GetDisplayName(context.Priority)</MudTd>
+                                        </MudTr>
+                                    </MudSimpleTable>
+                                </MudTd>
+                            </MudTr>
+                        }
+                    </ChildRowContent>
                     <PagerContent>
                         <MudTablePager HideRowsPerPage="true" PageSizeOptions="new int[]{10}" />
                     </PagerContent>
