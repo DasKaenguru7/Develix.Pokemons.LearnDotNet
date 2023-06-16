@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.ComponentModel;
+using System.Data;
 using System.Xml;
 using Develix.Pokemons.State.Moves;
 using PokeApiNet;
@@ -45,7 +46,7 @@ public static class Reducers
     public static PokedexState ReduceGetPokemonMovesAction(PokedexState state, GetPokemonMovesAction action)
     {
         return state with
-        { 
+        {
             Moves = new List<PokemonMoveTableRow>(),
         };
     }
@@ -57,5 +58,33 @@ public static class Reducers
         {
             Moves = new List<PokemonMoveTableRow>(state.Moves) { action.Move },
         };
+    }
+
+    [ReducerMethod]
+    public static PokedexState ReduceShowMoveDetailsAction(PokedexState state, ShowMoveDetailsAction action)
+    {
+        var currentMove = state.Moves.FirstOrDefault(m => m.Id == action.Move.Id);
+        if (currentMove != null)
+            currentMove.ShowDetails = !currentMove.ShowDetails;
+
+        return state;
+    }
+
+    [ReducerMethod]
+    public static PokedexState ReduceShowMoveDetailsResultAction(PokedexState state, ShowMoveDetailsResultAction action)
+    {
+        var currentMove = state.Moves.FirstOrDefault(m => m.Id == action.Move.Id);
+        if (currentMove != null)
+        {
+            var moveWithDamageClass = currentMove with { DamageClass = action.MoveDamageClass };
+            var moveList = state.Moves.ToList();
+            var index = moveList.IndexOf(currentMove);
+            moveList[index] = moveWithDamageClass;
+            return state with
+            {
+                Moves = moveList
+            };
+        }
+        return state;
     }
 }

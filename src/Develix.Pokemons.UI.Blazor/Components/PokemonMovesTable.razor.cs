@@ -52,9 +52,9 @@ public partial class PokemonMovesTable
         }
     }
 
-    private string GetGermanAttackeName(IEnumerable<Names> names)
+    private string GetGermanName(IEnumerable<Names>? names)
     {
-        var attackeName = names.FirstOrDefault(n => n.Language.Name == "de");
+        var attackeName = names?.FirstOrDefault(n => n.Language.Name == "de");
         if (attackeName == null)
         {
             return "nicht gefunden";
@@ -64,7 +64,7 @@ public partial class PokemonMovesTable
             return attackeName.Name;
         }
     }
-    private string GetDisplayName(int? value)
+    private string? GetDisplayName(int? value)
     {
         if (value == null)
         {
@@ -78,10 +78,8 @@ public partial class PokemonMovesTable
 
     private void RowClickEvent(TableRowClickEventArgs<PokemonMoveTableRow> row)
     {
-        if (row.Item.ShowDetails == false)
-            row.Item.ShowDetails = true;
-        else
-            row.Item.ShowDetails = false;
+        var action = new ShowMoveDetailsAction(row.Item);
+        Dispatcher?.Dispatch(action);
     }
     private bool GetMovesDisabled() => IsLoading;
 

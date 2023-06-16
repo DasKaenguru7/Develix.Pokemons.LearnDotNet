@@ -11,20 +11,53 @@
                     </HeaderContent>
                     <RowTemplate>
                         <MudTd DataLabel="Id">@context.Id</MudTd>
-                        <MudTd DataLabel="Name">@GetGermanAttackeName(context.Names)</MudTd>
+                        <MudTd DataLabel="Name">@GetGermanName(context.Names)</MudTd>
                     </RowTemplate>
                     <ChildRowContent>
                         @if (context.ShowDetails)
                         {
-                            <MudTr>Accuracy: @context.Accuracy</MudTr>
-                            <MudTr>Pp: @GetDisplayName(context.Pp)</MudTr>
-                            <MudTr>Power: @GetDisplayName(context.Power)</MudTr>
-                            <MudTr> Target: @context.Target</MudTr>
-                            <MudTr> EffectEntries: @GetGermanEffectEntriesName(context.EffectEntries)</MudTr>
-                            <MudTr> Effectchance: @GetDisplayName(context.EffectChance)</MudTr>
-                            <MudTr> DamageClass: @context.DamageClass</MudTr>
-                            <MudTr> FlavorTexetEntries: @GetGermanFlavorText(context.FlavorTextEntries)</MudTr>
-                            <MudTr> Priority: @context.Priority</MudTr>
+                            <MudTr>
+                                <MudTd colspan="2">
+                                    <MudSimpleTable Dense="true">
+                                        <MudTr>
+                                            <MudTd>Trefferquote</MudTd>
+                                            <MudTd>@GetDisplayName(context.Accuracy)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Ap</MudTd>
+                                            <MudTd>@GetDisplayName(context.Pp)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Stärke</MudTd>
+                                            <MudTd>@GetDisplayName(context.Power)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Ziel</MudTd>
+                                            <MudTd>@context.Target</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Effekt</MudTd>
+                                            <MudTd>@GetGermanEffectEntriesName(context.EffectEntries)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Effect Chance</MudTd>
+                                            <MudTd>@GetDisplayName(context.EffectChance)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Schadensklasse</MudTd>
+                                            <MudTd>@GetGermanName(@context.DamageClass?.Names)</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Flavor Texet</MudTd>
+                                            <MudTd>@context.FlavorTextEntries</MudTd>
+                                        </MudTr>
+                                        <MudTr>
+                                            <MudTd>Priorität</MudTd>
+                                            <MudTd>@GetDisplayName(context.Priority)</MudTd>
+                                        </MudTr>
+                                    </MudSimpleTable>
+                                </MudTd>
+                            </MudTr>
                         }
                     </ChildRowContent>
                     <PagerContent>

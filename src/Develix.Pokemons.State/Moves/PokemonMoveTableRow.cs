@@ -1,10 +1,11 @@
 ﻿using PokeApiNet;
 
 namespace Develix.Pokemons.State.Moves;
-public class PokemonMoveTableRow
+public record PokemonMoveTableRow
 {
     public int? Accuracy { get; }
-    public NamedApiResource<MoveDamageClass> DamageClass { get; }
+    public NamedApiResource<MoveDamageClass> ApiDamageClass { get; }
+    public MoveDamageClass? DamageClass { get; init; }
     public int? EffectChance { get; }
     public List<VerboseEffect> EffectEntries { get; }
     public List<MoveFlavorText> FlavorTextEntries { get; }
@@ -20,7 +21,7 @@ public class PokemonMoveTableRow
     public PokemonMoveTableRow(Move move)
     {
         Accuracy = move.Accuracy;
-        DamageClass = move.DamageClass;
+        ApiDamageClass = move.DamageClass;
         EffectChance = move.EffectChance;
         EffectEntries = move.EffectEntries;
         FlavorTextEntries = move.FlavorTextEntries;
